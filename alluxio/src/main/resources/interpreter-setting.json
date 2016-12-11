@@ -1,0 +1,36 @@
+[
+  {
+    "group": "alluxio",
+    "name": "alluxio",
+    "className": "org.apache.zeppelin.alluxio.AlluxioInterpreter",
+    "properties": {
+      "alluxio.master.hostname": {
+        "envName": "ALLUXIO_MASTER_HOSTNAME",
+        "propertyName": "alluxio.master.hostname",
+        "defaultValue": "localhost",
+        "description": "Alluxio master hostname"
+      },
+      "alluxio.master.port": {
+        "envName": "ALLUXIO_MASTER_PORT",
+        "propertyName": "alluxio.master.port",
+        "defaultValue": "19998",
+        "description": "Alluxio master port"
+      },
+      "alluxio.security.authentication.type": {
+        "envName": "ALLUXIO_SECURITY_AUTHENTICATION_TYPE",
+        "propertyName": "alluxio.security.authentication.type",
+        "defaultValue": "SIMPLE",
+        "description": "Alluxio Security Authentication Type"
+      },
+      "alluxio.security.authorization.permission.enabled": {
+        "envName": "ALLUXIO_SECURITY_AUTHORIZATION_PERMISSION_ENABLED",
+        "propertyName": "alluxio.security.authorization.permission.enabled",
+        "defaultValue": "true",
+        "description": "Alluxio Security Authorization Permission Enabled"
+      }
+    },
+    "editor": {
+      "editOnDblClick": false
+    }
+  }
+]
