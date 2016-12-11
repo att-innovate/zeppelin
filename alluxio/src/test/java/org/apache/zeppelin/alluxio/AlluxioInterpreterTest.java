@@ -64,13 +64,13 @@ public class AlluxioInterpreterTest {
 
   @Before
   public final void before() throws Exception {
-    mLocalAlluxioCluster = new LocalAlluxioCluster(SIZE_BYTES, 1000);
+    mLocalAlluxioCluster = new LocalAlluxioCluster(1);
     mLocalAlluxioCluster.start();
     fs = mLocalAlluxioCluster.getClient();
 
     final Properties props = new Properties();
-    props.put(AlluxioInterpreter.ALLUXIO_MASTER_HOSTNAME, mLocalAlluxioCluster.getMasterHostname());
-    props.put(AlluxioInterpreter.ALLUXIO_MASTER_PORT, mLocalAlluxioCluster.getMasterPort() + "");
+    props.put(AlluxioInterpreter.ALLUXIO_MASTER_HOSTNAME, mLocalAlluxioCluster.getHostname());
+    props.put(AlluxioInterpreter.ALLUXIO_MASTER_PORT, mLocalAlluxioCluster.getMasterRpcPort() + "");
     alluxioInterpreter = new AlluxioInterpreter(props);
     alluxioInterpreter.open();
   }
@@ -220,8 +220,8 @@ public class AlluxioInterpreterTest {
   @Test
   public void copyFromLocalTestWithFullURI() throws IOException, AlluxioException {
     File testFile = generateFileContent("/srcFileURI", BufferUtils.getIncreasingByteArray(10));
-    String uri = "tachyon://" + mLocalAlluxioCluster.getMasterHostname() + ":"
-            + mLocalAlluxioCluster.getMasterPort() + "/destFileURI";
+    String uri = "tachyon://" + mLocalAlluxioCluster.getHostname() + ":"
+            + mLocalAlluxioCluster.getMasterRpcPort() + "/destFileURI";
 
     InterpreterResult output = alluxioInterpreter.interpret("copyFromLocal " +
             testFile.getPath() + " " + uri, null);
@@ -433,8 +433,8 @@ public class AlluxioInterpreterTest {
   @Test
   public void mkdirTest() throws IOException, AlluxioException {
     String qualifiedPath =
-            "tachyon://" + mLocalAlluxioCluster.getMasterHostname() + ":"
-                    + mLocalAlluxioCluster.getMasterPort() + "/root/testFile1";
+            "tachyon://" + mLocalAlluxioCluster.getHostname() + ":"
+                    + mLocalAlluxioCluster.getMasterRpcPort() + "/root/testFile1";
     InterpreterResult output = alluxioInterpreter.interpret("mkdir " + qualifiedPath, null);
     boolean existsDir = fs.exists(new AlluxioURI("/root/testFile1"));
     Assert.assertEquals(
